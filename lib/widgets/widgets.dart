@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 InputDecoration textFieldInputDecoration(String hintText) {
   return InputDecoration(
       hintText: hintText,
@@ -14,7 +12,7 @@ InputDecoration textFieldInputDecoration(String hintText) {
 }
 
 TextStyle simpleTextStyle() {
-  return TextStyle(color: Colors.grey, fontSize: 16);
+  return TextStyle(color: Colors.black, fontSize: 16);
 }
 
 TextStyle mediumTextStyle() {
