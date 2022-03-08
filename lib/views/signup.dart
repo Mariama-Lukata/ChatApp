@@ -1,11 +1,13 @@
+import 'package:chatapp/helper/helperfunction.dart';
 import 'package:chatapp/services/auth.dart';
+import 'package:chatapp/services/database.dart';
 import 'package:chatapp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'chatRoomScreen.dart';
 
 class SignUp extends StatefulWidget {
-    final Function toggle;
+  final Function toggle;
 
   const SignUp({Key? key, required this.toggle}) : super(key: key);
 
@@ -17,6 +19,9 @@ class _SignUpState extends State<SignUp> {
   bool isLoading = false;
 
   AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+  //HelperFuntions helperFuntions = new HelperFuntions();
+
   final formKey = GlobalKey<FormState>();
   TextEditingController userNameTextEditingController =
       new TextEditingController();
@@ -27,6 +32,14 @@ class _SignUpState extends State<SignUp> {
 
   signMeUp() {
     if (formKey.currentState!.validate()) {
+      Map<String, String> userInfoMap = {
+        "name": userNameTextEditingController.text,
+        "email": emailTextEditingController.text,
+      };
+      HelperFuntions.saveUserEmailSharedPreference(
+          emailTextEditingController.text);
+      HelperFuntions.saveUseNameSharedPreference(
+          userNameTextEditingController.text);
       setState(() {
         isLoading = true;
       });
@@ -35,10 +48,10 @@ class _SignUpState extends State<SignUp> {
           .signUpwithEmailandPassword(emailTextEditingController.text,
               passwordTextEditingController.text)
           .then((val) {
-         // print("${val.uid}");
-          Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => ChatRoom()
-        )); 
+        databaseMethods.uploadUserInfo(userInfoMap);
+        HelperFuntions.saveUserLoggedInSharedPreference(true);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const ChatRoom()));
       });
     }
   }
@@ -140,8 +153,8 @@ class _SignUpState extends State<SignUp> {
                             style: mediumTextStyle(),
                           ),
                           GestureDetector(
-                            onTap: (){
-                               widget.toggle();
+                            onTap: () {
+                              widget.toggle();
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 8),

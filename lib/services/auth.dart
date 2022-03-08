@@ -8,7 +8,7 @@ class AuthMethods {
     return user != null ? mUser(userId: user.uid) : null;
   }
 
-  Future logInWithEmailandPassword(String email, String password) async {
+  Future signInWithEmailandPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -16,6 +16,7 @@ class AuthMethods {
       return _userFromFirebaseUser(user!);
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
@@ -27,6 +28,7 @@ class AuthMethods {
       return _userFromFirebaseUser(user!);
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
