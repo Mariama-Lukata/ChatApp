@@ -1,7 +1,11 @@
 import 'package:chatapp/helper/authenticate.dart';
 import 'package:chatapp/helper/helperfunction.dart';
-import 'package:chatapp/views/chatRoomScreen.dart';
+import 'package:chatapp/messages.dart';
+import 'package:chatapp/views/chatpage.dart';
+import 'package:chatapp/views/old/chatRoomScreen.dart';
+import 'package:chatapp/views/conversationScreen.dart';
 import 'package:chatapp/views/login.dart';
+import 'package:chatapp/views/search.dart';
 import 'package:chatapp/views/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      home: userisLoggedIn ? ChatRoom() : Authenticate(),
+      home: Authenticate(),
     );
   }
 }

@@ -1,11 +1,13 @@
 import 'package:chatapp/services/auth.dart';
 import 'package:chatapp/services/database.dart';
+import 'package:chatapp/views/chatpage.dart';
+import 'package:chatapp/views/search.dart';
 import 'package:chatapp/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../helper/helperfunction.dart';
-import 'chatRoomScreen.dart';
+import 'old/chatRoomScreen.dart';
 
 class Signin extends StatefulWidget {
   final Function toggle;
@@ -51,7 +53,7 @@ class _SigninState extends State<Signin> {
         if (val != null) {
           HelperFuntions.saveUserLoggedInSharedPreference(true);
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const ChatRoom()));
+              context, MaterialPageRoute(builder: (context) =>  SearchScreen()));
         }
       });
     }
@@ -110,7 +112,8 @@ class _SigninState extends State<Signin> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    signIn();
+                    Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) =>SearchScreen()));
                   },
                   child: Container(
                     alignment: Alignment.center,

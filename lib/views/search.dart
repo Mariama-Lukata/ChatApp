@@ -1,7 +1,9 @@
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/helper/helperfunction.dart';
+import 'package:chatapp/messages.dart';
 import 'package:chatapp/services/database.dart';
+import 'package:chatapp/views/chatpage.dart';
 import 'package:chatapp/views/conversationScreen.dart';
 import 'package:chatapp/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +18,7 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
- String? _myName;
+String? _myName;
 
 class _SearchScreenState extends State<SearchScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -61,8 +63,13 @@ class _SearchScreenState extends State<SearchScreen> {
         "chatroomid": chatRoomId
       };
       DatabaseMethods().creatChatRoom(chatRoomId, chatRoomMap);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ConversationScreen(chatRoomId, chatroomid: '',)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConversationScreen(
+                    chatRoomId,
+                    chatroomid: '',
+                  )));
     } else {
       print("Dont talk to yourself, talk to a friend");
     }
@@ -87,9 +94,10 @@ class _SearchScreenState extends State<SearchScreen> {
             ],
           ),
           Spacer(),
-          GestureDetector(
+          InkWell(
             onTap: () {
-              createChatroonandStartConversation(userName: userName);
+               Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => chatpage(email:userEmail,)));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -110,8 +118,6 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
